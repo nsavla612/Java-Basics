@@ -5,86 +5,75 @@ import java.util.List;
 // File.java
 public class File
 {
-    public int Filesize;
-    public String Filename; // must contain extension
-    public String FilePath;
-    public String FileExtension;
-    public boolean isDirectory;
-    public List<File> files;
-
-
+    private int Filesize;
+    private String Filename; // must contain extension
+    private String FilePath;
+    private String FileExtension;
+    private boolean isDirectory;
+    private List<File> files;
 
     public File() {
-        this.setFilesize(0);
-        this.setFilename("");
-        this.setFilePath("");
-        this.setFileExtension("");
-        this.setIsDirectory(false);
+        this.Filesize = 0 ;
+        this.Filename = "";
+        this.FilePath = "";
+        this.FileExtension = "";
+        this.isDirectory = false;
         this.files = new ArrayList<File>();
     }
 
-    public File(String directory, int filesize, boolean isDirectory) {
-        this.setFilesize(filesize);
-        this.setFilename(directory.substring(directory.lastIndexOf('/') + 1 , directory.length() ));
-        this.setFilePath(directory);
-        this.setFileExtension(directory.substring(directory.lastIndexOf('.') + 1 , directory.length() ));
-        this.setIsDirectory(isDirectory);
-        this.files = new ArrayList<File>();
-    }
-
-    public List<File> getFiles() {
-        return files;
-    }
-
-    public void setFiles(File... files) {
-        this.files = Arrays.asList(files);
+    public File(Builder builder)
+    {
+        this.Filesize = builder.Filesize;
+        this.FilePath = builder.FilePath;
+        this.isDirectory = builder.isDirectory;
+        this.Filename = builder.FilePath.substring(builder.FilePath.lastIndexOf('/') + 1 , builder.FilePath.length() );
+        this.FileExtension = builder.FilePath.substring(builder.FilePath.lastIndexOf('.') + 1 , builder.FilePath.length());
+        this.files = builder.files;
     }
 
     public boolean isDirectory() {
         return isDirectory;
     }
 
-    public void setDirectory(boolean directory) {
-        isDirectory = directory;
-    }
-
-    public boolean getIsDirectory() {
-        return isDirectory;
-    }
-
-    public void setIsDirectory(boolean isDirectory) {
-        this.isDirectory = isDirectory;
-    }
-
-    public String getFileExtension() {
-        return FileExtension;
-    }
-
-    public void setFileExtension(String fileExtension) {
-        FileExtension = fileExtension;
-    }
-
-    public String getFilePath() {
-        return FilePath;
-    }
-
-    public void setFilePath(String filePath) {
-        FilePath = filePath;
-    }
-
     public String getFilename() {
         return Filename;
-    }
-
-    public void setFilename(String filename) {
-        Filename = filename;
     }
 
     public int getFilesize() {
         return Filesize;
     }
 
-    public void setFilesize(int filesize) {
-        Filesize = filesize;
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public static class Builder {
+        private int Filesize;
+        private String FilePath;
+        private boolean isDirectory;
+        private List<File> files;
+
+        public Builder() {}
+
+        public Builder size(int size) {
+            Filesize = size; return this;
+        };
+
+        public Builder FilePath(String filePath) {
+            FilePath = filePath; return this;
+        }
+
+        public Builder isDirectory(boolean isDirectory) {
+            this.isDirectory = isDirectory; return this;
+        }
+
+        public Builder addFiles(File... files) {
+            this.files = Arrays.asList(files); return this;
+        }
+
+        public File build()
+        {
+            return new File(this);
+        }
     }
 }
