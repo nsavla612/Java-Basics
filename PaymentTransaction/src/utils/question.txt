@@ -1,0 +1,11 @@
+Question -
+
+Create a Payment Handler class
+There are three types of transaction - Peer to Peer, Peer to Merchant, Self
+Create a function that returns the amounts of each of the transactions and also for a specific type of transaction.
+
+Follow up -
+We have reward system only for Peer to Merchant type.
+If the sender is in the top 100 ( configurable ) in terms of maximum amounts for Peer to Merchant type,
+    then the sender is eligible for rewards.
+Return if the sender is eligible for rewards.
